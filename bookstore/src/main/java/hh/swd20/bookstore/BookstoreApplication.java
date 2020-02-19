@@ -25,7 +25,7 @@ public class BookstoreApplication {
 			bookRepository.save(new Book(123456789, "978-1-83882-236-1", "Juha Hinkula","Hands-On Full Stack Development with Spring Boot 2 and React", 2019, 1.1));
 			bookRepository.save(new Book(123456782, "978-952-220-084-6", "Jukka Harju, Jukka Juslin","Java-ohjelmointi opas ammattimaiseen osaamiseen", 2009, 1.2));	
 			
-			log.info("fetch all cars");
+			log.info("Hae kirjoja");
 			for (Book book : bookRepository.findAll()) {
 				log.info(book.toString());
 			}
