@@ -1,7 +1,16 @@
 package hh.swd20.bookstore.domain;
 
-public class Book {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
+@Entity
+public class Book {
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private long id;
 	private String isbn;
 	private String author;
 	private String title;
@@ -12,13 +21,22 @@ public class Book {
 		super();
 	}
 
-	public Book(String isbn, String author, String title, int year, double price) {
+	public Book(long id, String isbn, String author, String title, int year, double price) {
 		super();
+		this.id = id;
 		this.isbn = isbn;
 		this.author = author;
 		this.title = title;
 		this.year = year;
 		this.price = price;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	public String getIsbn() {
@@ -63,9 +81,10 @@ public class Book {
 
 	@Override
 	public String toString() {
-		return "Book [isbn=" + isbn + ", author=" + author + ", title=" + title + ", year=" + year + ", price=" + price
-				+ "]";
+		return "Book [id=" + id + ", isbn=" + isbn + ", author=" + author + ", title=" + title + ", year=" + year
+				+ ", price=" + price + "]";
 	}
+	
 	
 	
 }
