@@ -10,7 +10,7 @@ public class Book {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private long id;
+	private Long id;
 	private String isbn;
 	private String author;
 	private String title;
@@ -19,9 +19,26 @@ public class Book {
 	
 	public Book() {
 		super();
+		this.id = null;
+		this.isbn = null;
+		this.author = null;
+		this.title = null;
+		this.year = 0;
+		this.price = 0;
+	}
+	
+	
+	public Book(String isbn, String author, String title, int year, double price) {
+		super();
+		this.isbn = isbn;
+		this.author = author;
+		this.title = title;
+		this.year = year;
+		this.price = price;
 	}
 
-	public Book(long id, String isbn, String author, String title, int year, double price) {
+
+	public Book(Long id, String isbn, String author, String title, int year, double price) {
 		super();
 		this.id = id;
 		this.isbn = isbn;
@@ -31,11 +48,11 @@ public class Book {
 		this.price = price;
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -84,7 +101,4 @@ public class Book {
 		return "Book [id=" + id + ", isbn=" + isbn + ", author=" + author + ", title=" + title + ", year=" + year
 				+ ", price=" + price + "]";
 	}
-	
-	
-	
 }

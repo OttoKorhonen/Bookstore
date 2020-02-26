@@ -20,14 +20,14 @@ public class BookController {
 	   // ja kytkee olion BookController-luokasta luodun olion attribuuttiolioksi
 	@Autowired
 	BookRepository bookrepository;
-	//tyhjän kirjalomakkeen muodostaminen
-	@RequestMapping(value = "/index", method = RequestMethod.GET)
-	public String getIndex(Model model) {
-		model.addAttribute("book", new Book());
-		return "index";
+
+	@RequestMapping(value="/editbook/{id}", method=RequestMethod.GET)
+	public String editBook(@PathVariable("id") Long Id, Model model) {
+		model.addAttribute("book", bookrepository.findById(Id));
+		return "editbook"; //editbook.html palautus
 	}
 	
-	@RequestMapping(value = "/books", method = RequestMethod.GET)
+	@RequestMapping(value = "/booklist", method = RequestMethod.GET)
 	public String getBooks(Model model) {
 		List<Book> books = (List<Book>) bookrepository.findAll();//haetaan tietokannasta kirjat
 		model.addAttribute("books",books); //välitetään kirjalista templatelle model-olion avulla
@@ -36,7 +36,7 @@ public class BookController {
 	
 	// tyhjän kirjalomakkeen muodostaminen
 		@RequestMapping(value = "/newbook", method = RequestMethod.GET)
-		public String getNewBookForm(Model model) {
+		public String getAddBookForm(Model model) {
 			model.addAttribute("book", new Book()); // "tyhjä" kirja-olio
 			return "bookform"; //bookform.html palautus
 		}
@@ -46,13 +46,13 @@ public class BookController {
 		public String saveBook(@ModelAttribute Book book) {
 			// talletetaan yhden kirjan tiedot tietokantaan
 			bookrepository.save(book); //save osaa tehdä tarpeen mukaan SQL insertin tai updaten
-			return "redirect:/books";// /booklist-endpointin kutsu
+			return "redirect:/booklist";// /booklist-endpointin kutsu
 		}
 
 		// kirjan poisto
 		@RequestMapping(value = "/deletebook/{id}", method = RequestMethod.GET)
 		public String deleteBook(@PathVariable("id") Long Id) {
 			bookrepository.deleteById(Id);
-			return "redirect:../books";
+			return "redirect:../booklist";
 		}
 }
