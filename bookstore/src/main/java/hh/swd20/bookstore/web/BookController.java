@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import hh.swd20.bookstore.domain.Book;
 import hh.swd20.bookstore.domain.BookRepository;
 
-@Controller
+@Controller//Controller-annotaatio
 public class BookController {
 
 	 // Spring-alusta luo sovelluksen käynnistyessä BookRepository-rajapintaa toteuttavan luokan olion 
@@ -21,9 +21,9 @@ public class BookController {
 	@Autowired
 	BookRepository bookrepository;
 
-	@RequestMapping(value="/editbook/{id}", method=RequestMethod.GET)
+	@RequestMapping(value="/editbook/{id}", method=RequestMethod.GET)//haetaan endpointia
 	public String editBook(@PathVariable("id") Long Id, Model model) {
-		model.addAttribute("book", bookrepository.findById(Id));
+		model.addAttribute("book", bookrepository.findById(Id));//käytetään findById-metodia haettaessa bookrepositorystä tiettyä kirjaa Id-tunnuksella
 		return "editbook"; //editbook.html palautus
 	}
 	
@@ -36,7 +36,7 @@ public class BookController {
 	
 	// tyhjän kirjalomakkeen muodostaminen
 		@RequestMapping(value = "/newbook", method = RequestMethod.GET)
-		public String getAddBookForm(Model model) {
+		public String AddBookForm(Model model) {
 			model.addAttribute("book", new Book()); // "tyhjä" kirja-olio
 			return "bookform"; //bookform.html palautus
 		}

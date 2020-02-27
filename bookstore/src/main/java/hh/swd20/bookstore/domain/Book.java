@@ -6,18 +6,18 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Book {
+public class Book { //luodaan kirja-luokka
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Long id;
+	@GeneratedValue(strategy=GenerationType.AUTO)//luodaan automaattisesti id-numeroita kirjoille
+	private Long id; //annetaan kirja-luokalle attribuutit
 	private String isbn;
 	private String author;
 	private String title;
 	private int year;
 	private double price;
 	
-	public Book() {
+	public Book() {//luodaan kirja-luokalle getterit ja setterit
 		super();
 		this.id = null;
 		this.isbn = null;
