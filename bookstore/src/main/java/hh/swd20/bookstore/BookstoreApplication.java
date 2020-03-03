@@ -21,33 +21,27 @@ public class BookstoreApplication {
 		SpringApplication.run(BookstoreApplication.class, args);
 	}
 	@Bean
-	public CommandLineRunner bookDemo(BookRepository bookRepository) { //luodaan repository, johon tallennetaan muutama esimerkki kirja
+	public CommandLineRunner bookDemo(BookRepository bookRepository, CategoryRepository categoryRepository) { //luodaan repository, johon tallennetaan muutama esimerkki kirja
 		return (args) -> {
 			log.info("Tallennetaan kirjoja");
-			bookRepository.save(new Book("978-1-83882-236-1", "Juha Hinkula","Hands-On Full Stack Development with Spring Boot 2 and React", 2019, 1.1));
-			bookRepository.save(new Book("978-952-220-084-6", "Jukka Harju, Jukka Juslin","Java-ohjelmointi opas ammattimaiseen osaamiseen", 2009, 1.2));	
+			Category scifi = new Category("Scifi");
+			Category comic = new Category("Comic");
+			Category nonfiction = new Category("Non-fiction");
+			Category horror = new Category("Horror");
+			categoryRepository.save(scifi);
+			categoryRepository.save(comic);
+			categoryRepository.save(nonfiction);
+			categoryRepository.save(horror);
 			
+			
+			bookRepository.save(new Book("978-1-83882-236-1", "Juha Hinkula","Hands-On Full Stack Development with Spring Boot 2 and React", 2019, 1.1, nonfiction));
+			bookRepository.save(new Book("978-952-220-084-6", "Jukka Harju, Jukka Juslin","Java-ohjelmointi opas ammattimaiseen osaamiseen", 2009, 1.2, nonfiction));	
+				
 			log.info("Hae kirjoja");
 			for (Book book : bookRepository.findAll()) {
 				log.info(book.toString());
 			}
 
-		};
-	}
-	
-	@Bean
-	public CommandLineRunner Category(CategoryRepository categoryRepository) {
-		return (args) -> {
-			log.info("Tallennetaan muutama kategoria");
-			categoryRepository.save(new Category("Scifi"));
-			categoryRepository.save(new Category("Comic"));
-			categoryRepository.save(new Category("Non-fiction"));
-			categoryRepository.save(new Category("Horror"));
-			
-			log.info("Hae kategorioita");
-			for(Category category : categoryRepository.findAll()) {
-				log.info(category.toString());
-			}
 		};
 	}
 }
