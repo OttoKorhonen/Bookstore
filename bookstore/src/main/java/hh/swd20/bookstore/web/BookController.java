@@ -42,7 +42,7 @@ public class BookController {
 		@RequestMapping(value = "/newbook", method = RequestMethod.GET)
 		public String AddBookForm(Model model) {
 			model.addAttribute("book", new Book()); // "tyhjä" kirja-olio
-			model.addAttribute("category", categoryRepository.findAll());//lisättiin haku categoryrepositorysta
+			model.addAttribute("categories", categoryRepository.findAll());//lisättiin haku categoryrepositorysta
 			return "bookform"; //bookform.html palautus
 		}
 
