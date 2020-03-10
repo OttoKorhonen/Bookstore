@@ -15,11 +15,12 @@ import hh.swd20.bookstore.domain.CategoryRepository;
 @SpringBootApplication
 public class BookstoreApplication {
 
-	private static final Logger log = LoggerFactory.getLogger(BookstoreApplication.class);  // uusi loggeriattribuutti
+	private static final Logger log = LoggerFactory.getLogger(BookstoreApplication.class);  // tehdään uusi loggeri jokaiselle luokalle
 	
 	public static void main(String[] args) {//mainista käynnistetään sovellus
 		SpringApplication.run(BookstoreApplication.class, args);
 	}
+	
 	@Bean
 	public CommandLineRunner bookDemo(BookRepository bookRepository, CategoryRepository categoryRepository) { //luodaan repository, johon tallennetaan muutama esimerkki kirja
 		return (args) -> {

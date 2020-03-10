@@ -8,7 +8,7 @@
 	<h1>Books</h1>
 	<table>
 		<tr>
-			<th>Id</th>
+			<th>ID</th>
 			<th>ISBN</th>
 			<th>Author</th>
 			<th>Year</th>
@@ -22,7 +22,7 @@
 			<td th:text="${book.author}">Author</td>
 			<td th:text="${book.year}">Year</td>
 			<td th:text="${book.price}">Price</td>
-			 <td th:text="${book.category.name}"></td> <!-- muokkaa tätä onko category.id  -->
+			<td th:text="${book.category.name}"></td> <!-- muokkaa tätä onko category.id  -->
 			<td><a th:href="@{/deletebook/{id}(id=${book.id})}">Delete</a></td>
 			<td><a th:href="@{/editbook/{id}(id=${book.id})}">Edit</a></td>
 		</tr>
