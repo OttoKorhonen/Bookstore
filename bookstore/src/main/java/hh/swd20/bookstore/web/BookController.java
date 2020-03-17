@@ -28,20 +28,28 @@ public class BookController {
 	@Autowired
 	CategoryRepository categoryRepository;
 
+	// login controller kirja-sovellukseen
+	@RequestMapping(value = "/login")
+	public String login() {
+		return "login";
+	}
+
 	@RequestMapping(value = "/editbook/{id}", method = RequestMethod.GET) // haetaan endpointia
 	public String editBook(@PathVariable("id") Long Id, Model model) {
 		model.addAttribute("book", bookRepository.findById(Id));// käytetään findById-metodia haettaessa
 																// bookrepositorystä tiettyä kirjaa Id-tunnuksella
 		return "editbook"; // editbook.html palautus
 	}
-	//Tehdään RESTful metodi hakemaan kaikki kirjat
-	@RequestMapping(value="/books", method = RequestMethod.GET)
-	public @ResponseBody List<Book> bookListRest(){
+
+	// Tehdään RESTful metodi hakemaan kaikki kirjat
+	@RequestMapping(value = "/books", method = RequestMethod.GET)
+	public @ResponseBody List<Book> bookListRest() {
 		return (List<Book>) bookRepository.findAll();
 	}
-	//RESTful palvelu, jolla etsitään kirjaa id:n perusteella
-	@RequestMapping(value="/books/{id}", method=RequestMethod.GET)
-	public @ResponseBody Optional<Book> findBookRest(@PathVariable("id") Long id){
+
+	// RESTful palvelu, jolla etsitään kirjaa id:n perusteella
+	@RequestMapping(value = "/books/{id}", method = RequestMethod.GET)
+	public @ResponseBody Optional<Book> findBookRest(@PathVariable("id") Long id) {
 		return bookRepository.findById(id);
 	}
 
@@ -71,7 +79,7 @@ public class BookController {
 
 	// kirjan poisto
 	@RequestMapping(value = "/deletebook/{id}", method = RequestMethod.GET)
-	public String deleteBook(@PathVariable("id") Long Id) {
+	public String deleteBook(@PathVariable("id") Long Id, Model model) {
 		bookRepository.deleteById(Id);
 		return "redirect:../booklist";
 	}
