@@ -52,7 +52,7 @@ public class BookController {
 	public @ResponseBody Optional<Book> findBookRest(@PathVariable("id") Long id) {
 		return bookRepository.findById(id);
 	}
-
+	//listaa kirjat
 	@RequestMapping(value = "/booklist", method = RequestMethod.GET)
 	public String getBooks(Model model) {
 		List<Book> books = (List<Book>) bookRepository.findAll();// haetaan tietokannasta kirjat
@@ -79,7 +79,7 @@ public class BookController {
 
 	// kirjan poisto
 	@RequestMapping(value = "/deletebook/{id}", method = RequestMethod.GET)
-	public String deleteBook(@PathVariable("id") Long Id, Model model) {
+	public String deleteBook(@PathVariable("id") Long Id,  Model model) {
 		bookRepository.deleteById(Id);
 		return "redirect:../booklist";
 	}
