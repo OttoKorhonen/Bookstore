@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -52,7 +53,8 @@ public class BookController {
 	public @ResponseBody Optional<Book> findBookRest(@PathVariable("id") Long id) {
 		return bookRepository.findById(id);
 	}
-	//listaa kirjat
+
+	// listaa kirjat
 	@RequestMapping(value = "/booklist", method = RequestMethod.GET)
 	public String getBooks(Model model) {
 		List<Book> books = (List<Book>) bookRepository.findAll();// haetaan tietokannasta kirjat
@@ -77,9 +79,17 @@ public class BookController {
 		return "redirect:/booklist";// /booklist-endpointin kutsu
 	}
 
-	// kirjan poisto
+//	// tässä vanha kirjan poistoon käytetty metodi
+//	@RequestMapping(value = "/deletebook/{id}", method = RequestMethod.GET)
+//	public String deleteBook(@PathVariable("id") Long Id,  Model model) {
+//		bookRepository.deleteById(Id);
+//		return "redirect:../booklist";
+//	}
+
+	// kirjan poistamiseen käytetty metodi, jossa ainoastaan käyttäjä, jolle on annettu rooli ADMIN voi poistaa kirjan luettelosta
 	@RequestMapping(value = "/deletebook/{id}", method = RequestMethod.GET)
-	public String deleteBook(@PathVariable("id") Long Id,  Model model) {
+	@PreAuthorize("hasAuthority('ADMIN')")
+	public String deleteBook(@PathVariable("id") Long Id, Model model) {
 		bookRepository.deleteById(Id);
 		return "redirect:../booklist";
 	}
